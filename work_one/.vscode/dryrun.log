@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/amanda/Documentos/dev/idj/penguin_game/work_one'
+g++ -o JOGO   -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lm -std=c++11 -Wall -pedantic -Wextra -Wno-unused-parameter -Werror=init-self
+make: Leaving directory '/home/amanda/Documentos/dev/idj/penguin_game/work_one'
+ 
