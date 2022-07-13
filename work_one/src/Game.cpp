@@ -27,4 +27,30 @@ Game::Game(string title, int width, int height) {
         exit(1);
     }
 
+    int flags = (MIX_INIT_OGG);
+    int mixInit = Mix_Init(flags)
+    if (minInit != flags) {
+        cout << "Error whiling init Mix_Init. Cause:  " << SDL_GetError() << endl;
+        exit(1);
+    }
+    
+    if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) != 0) {
+        cout << "Error whiling init Mix_OpenAudio. Cause:  " << SDL_GetError() << endl;
+        exit(1);
+    }
+    Mix_AllocateChannels(32);
+
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+    if (window == nullptr) {
+        cout << "Error whiling init SDL_CreateWindow. Cause:  " << SDL_GetError() << endl;
+        exit(1);
+    }
+
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == nullptr) {
+        cout << "Error whiling init SDL_CreateRenderer. Cause:  " << SDL_GetError() << endl;
+        exit(1);
+    }
+
+
 }
