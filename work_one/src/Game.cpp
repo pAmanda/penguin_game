@@ -63,3 +63,16 @@ Game::~Game() {
     IMG_Quit();
     SDL_Quit();
 }
+
+
+State &Game::getState() {
+    return *state;
+}
+
+SDL_Renderer *Game::getRenderer() {
+    return renderer;
+}
+
+void Game::run() {
+
+}
