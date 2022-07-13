@@ -12,8 +12,6 @@ public:
 
     ~State();
 
-    void start();
-
     bool getQuitRequested();
 
     void loadAssets();
