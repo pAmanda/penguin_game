@@ -54,3 +54,12 @@ Game::Game(string title, int width, int height) {
 
 
 }
+
+Game::~Game() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    Mix_CloseAudio();
+    Mix_Quit();
+    IMG_Quit();
+    SDL_Quit();
+}
