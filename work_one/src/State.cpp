@@ -1,9 +1,10 @@
-#include "State.h"
+#include "../include/State.h"
+#include "../include/Assets.h"
 
 State::State() {
     quitRequested = false;
 
-    // new Sprite();
+    bg = new Sprite(Assets::getImg("ocean.jpg"));
 
 }
 
@@ -24,5 +25,5 @@ void State::update(float dt) {
 
 
 void State::render() {
-    bg.render();
+    bg->render(0, 0);
 }

@@ -3,17 +3,21 @@
 #define INCLUDE_SDL_MIXER
 
 #include "SDL_include.h"
-#include "Game.h"
+#include "../include/Game.h"
 
 using namespace std;
 
 Game* Game::instance = nullptr;
 
-Game::Game(string title, int width, int height) {
+Game::Game(std::string title, int width, int height) {
     //Singleton
     if (instance != nullptr) {
-        return instance;
+      throw "Game already initialize";
     }
+
+    frameStart = 0;
+    dt = 0;
+    instance = this;
 
    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) != 0) {
         cout << "Error whiling init SDL. Cause: " << SDL_GetError() << endl;
@@ -21,15 +25,11 @@ Game::Game(string title, int width, int height) {
     }
 
     //Image libraries
-    if (IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF) != 
-        IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF) {
-        cout << "Error whiling init SDL_IMAGE. Cause: " << SDL_GetError() << endl;
-        exit(1);
-    }
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG | IMG_INIT_TIF);
 
     int flags = (MIX_INIT_OGG);
-    int mixInit = Mix_Init(flags)
-    if (minInit != flags) {
+    int mixInit = Mix_Init(flags);
+    if (mixInit != flags) {
         cout << "Error whiling init Mix_Init. Cause:  " << SDL_GetError() << endl;
         exit(1);
     }
@@ -52,6 +52,8 @@ Game::Game(string title, int width, int height) {
         exit(1);
     }
 
+    state = new State();
+
 
 }
 
@@ -65,14 +67,38 @@ Game::~Game() {
 }
 
 
-State &Game::getState() {
-    return *state;
+void Game::run() {
+    while (!state->getQuitRequested()) {
+        calculateDeltaTime();
+        state->update(dt);
+        state->render();
+        SDL_RenderPresent(renderer);
+        SDL_Delay(33);
+    }
+}
+
+void Game::calculateDeltaTime() {
+    auto actualFrame = SDL_GetTicks();
+    actualFrame *= 100;
+    dt = actualFrame - frameStart;
+    frameStart = actualFrame;
 }
 
 SDL_Renderer *Game::getRenderer() {
     return renderer;
 }
 
-void Game::run() {
-
+Game &Game::getInstance() {
+    if (instance != nullptr) {
+        return *instance;
+    } else {
+        instance = new Game("Amanda - 150004796", 1024, 600);
+    }
+    return *instance;
 }
+
+
+State &Game::getState() {
+    return *state;
+}
+

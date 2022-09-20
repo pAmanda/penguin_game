@@ -1,30 +1,39 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef IDJ_ENGINE_GAME_H
+#define IDJ_ENGINE_GAME_H
 
 #define INCLUDE_SDL
+#define INCLUDE_SDL_IMAGE
+#define INCLUDE_SDL_MIXER
 
-#include "SDL_include.h"
-#include <string>
+#include "../include/SDL_include.h"
+#include "../include/State.h"
+#include <iostream>
 
 class Game {
 
-public :
-
-    ~Game();
-
-    void Run();
-    SDL_Renderer* GetRenderer ();
-    static Game& GetInstance();
-
-
 private:
-
-    Game(std::string title, int width, int height);
-
     static Game *instance;
     SDL_Window *window{};
     SDL_Renderer *renderer{};
+    State *state;
+    int frameStart;
+    float dt;
+
+public:
+    explicit Game(std::string title, int width, int height);
+
+    ~Game();
+
+    void run();
+
+    SDL_Renderer *getRenderer();
+
+    State &getState();
+
+    static Game &getInstance();
+    
+    void calculateDeltaTime();
 
 };
 
-#endif //GAME_H
+#endif //IDJ_ENGINE_GAME_H

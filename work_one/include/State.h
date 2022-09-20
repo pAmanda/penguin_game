@@ -1,9 +1,12 @@
 #ifndef STATE_H
+#define STATE_H
+
+#include "../include/Sprite.h"
 
 class State {
 private:
 
-    // Sprite bg;
+    Sprite *bg;
     // Music music;
     bool quitRequested;
 
@@ -23,4 +26,4 @@ public:
 };
 
 
-#endif 
+#endif //STATE_H
