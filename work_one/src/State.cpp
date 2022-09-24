@@ -6,6 +6,7 @@ State::State() {
 
     bg = new Sprite(Assets::getImg("ocean.jpg"));
 
+    music = new Music(Assets::getAudio("stageState.ogg"));
 }
 
 bool State::getQuitRequested() {
@@ -27,3 +28,8 @@ void State::update(float dt) {
 void State::render() {
     bg->render(0, 0);
 }
+
+void State::play() {
+    music->play();
+}
+

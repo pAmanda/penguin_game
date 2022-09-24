@@ -1,15 +1,16 @@
-#ifndef IDJ_ENGINE_ASSETS_H
-#define IDJ_ENGINE_ASSETS_H
-
+#ifndef ASSETS_H
+#define ASSETS_H
 
 #include <string>
 
-#define IDE 0
 
 class Assets {
 public:
 
     static std::string getImg(std::string);
+
+    static std::string getAudio(std::string);
+
 };
 
-#endif // IDJ_ENGINE_ASSETS_H
+#endif // ASSETS_H

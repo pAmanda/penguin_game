@@ -2,12 +2,14 @@
 #define STATE_H
 
 #include "../include/Sprite.h"
+#include "../include/Music.h"
+
 
 class State {
 private:
 
     Sprite *bg;
-    // Music music;
+    Music *music;
     bool quitRequested;
 
 public:
@@ -22,6 +24,8 @@ public:
     void update(float dt);
 
     void render();
+
+    void play();
 
 };
 
